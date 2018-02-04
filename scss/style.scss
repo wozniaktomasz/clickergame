@@ -1,0 +1,37 @@
+body {
+}
+
+.clickergame {
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 100%;
+  max-width: 1140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  padding: 15px;
+
+  @at-root #{&}__money {
+    flex: 0 0 70%;
+    max-width: 70%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+  }
+
+  @at-root #{&}__shop {
+    flex: 0 0 30%;
+    max-width: 30%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

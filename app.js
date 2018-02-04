@@ -1,29 +1,28 @@
+import "./scss/style.scss";
+
 class ClickerGame {
 
     constructor() {
-        this.cat = 0;
-        this.dog = 0;
-        this.mouse = 0;
-        this.robot = 0;
-        this.superman = 0;
-        this.batman = 0;
-        this.clicks = 0;
-        this.clicks_per_second = 0;
+        this.catCount = 0;
+        this.dogCount = 0;
+        this.mouseCount = 0;
+        this.robotCount = 0;
+        this.supermanCount = 0;
+        this.batmanCount = 0;
         this.money = 0;
         this.clickersRatio = new Map();
-        this.click_power = 1;
+        this.clickPower = 1;
 
-        this.clickersRatio.set('cat', 0.2);
-        this.clickersRatio.set('dog', 0.25);
-        this.clickersRatio.set('mouse', 0.30);
-        this.clickersRatio.set('robot', 0.40);
-        this.clickersRatio.set('superman', 0.50);
-        this.clickersRatio.set('batman', 0.6);
+        this.clickersRatio.set('catCount', 0.2);
+        this.clickersRatio.set('dogCount', 0.25);
+        this.clickersRatio.set('mouseCount', 0.30);
+        this.clickersRatio.set('robotCount', 0.40);
+        this.clickersRatio.set('supermanCount', 0.50);
+        this.clickersRatio.set('batmanCount', 0.6);
     }
 
-
     click() {
-        this.money += 1;
+        this.money += this.clickPower;
     }
 
     getMoney() {
@@ -33,54 +32,61 @@ class ClickerGame {
     buyCatClicker() {
         if (this.money >= 20) {
             this.money-=20;
-            this.cat++;
+            this.catCount++;
         }
     }
 
     buyDogClicker() {
         if (this.money >= 40) {
             this.money-=40;
-            this.dog++;
+            this.dogCount++;
         }
     }
 
     buyMouseClicker() {
         if (this.money >= 80) {
             this.money-=80;
-            this.mouse++;
+            this.mouseCount++;
         }
     }
 
     buyRobotClicker() {
         if (this.money >= 160) {
             this.money-=160;
-            this.robot++;
+            this.robotCount++;
         }
     }
     buySupermanClicker() {
         if (this.money >= 320) {
             this.money-=320;
-            this.superman++;
+            this.supermanCount++;
         }
     }
     buyBatmanClicker() {
         if (this.money >= 640) {
             this.money-=640;
-            this.batman++;
+            this.batmanCount++;
         }
     }
 
     addAutoClicker() {
-       this.money = this.money + (this.cat * .2) + (this.dog * .45) + (this.mouse * .85) + (this.robot * 1.75) + (this.superman * 2.50) + (this.batman * 5);
+       this.money =
+           this.money + (this.catCount * this.clickersRatio.get('catCount'))
+           + (this.dogCount * this.clickersRatio.get('dogCount'))
+           + (this.mouseCount * this.clickersRatio.get('mouseCount'))
+           + (this.robotCount * this.clickersRatio.get('robotCount'))
+           + (this.supermanCount * this.clickersRatio.get('supermanCount'))
+           + (this.batmanCount * this.clickersRatio.get('batmanCount'));
     }
 
     getClicksPerSecond() {
-        return ((this.cat * .2) + (this.dog * .45) + (this.mouse * .85) + (this.robot * 1.75) + (this.superman * 2.50) + (this.batman * 5)).toFixed(2);
+        return ((this.catCount * .2) + (this.dogCount * .45) + (this.mouseCount * .85) + (this.robotCount * 1.75) + (this.supermanCount * 2.50) + (this.batmanCount * 5)).toFixed(2);
     }
 }
 
 let game = new ClickerGame();
 let money = document.getElementById('money');
+let money_text = document.getElementById('money_text');
 let buyCat = document.getElementById('buyCat');
 let buyDog = document.getElementById('buyDog');
 let buyMouse = document.getElementById('buyMouse');
@@ -92,7 +98,7 @@ let money_per_second = document.getElementById('money_per_second');
 money.addEventListener(
     "click", function(){
         game.click();
-        this.innerHTML = 'Money: ' + game.getMoney();
+        money_text.innerHTML = 'Money: ' + game.getMoney() + '$';
     }
 );
 
@@ -136,6 +142,6 @@ setInterval(function () {
 }, 1000);
 
 setInterval(function () {
-    money.innerHTML = 'Money: ' + game.getMoney();
-    money_per_second.innerHTML =  + game.getClicksPerSecond() + ' per second'
+    money_text.innerHTML = 'Money: ' + game.getMoney() + '$';
+    money_per_second.innerHTML = 'Money per second:' + game.getClicksPerSecond() + '$';
 }, 500);
