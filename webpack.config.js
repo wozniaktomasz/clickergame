@@ -7,16 +7,29 @@ module.exports = {
         path: __dirname,
         filename: "app.bundle.js"
     },
+    watch: true,
     module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [{
+                loader: "style-loader" // creates style nodes from JS strings
+            }, {
+                loader: "css-loader" // translates CSS into CommonJS
+            }, {
+                loader: "sass-loader" // compiles Sass to CSS
+            }]
+        }],
         loaders: [
-            { test: /\.css$/, loader: "style!css" },
-            { test: /\.html/, loader: "html" },
             {
-             test: /\.js$/,
-             loader: 'babel-loader',
-             query: {
-                 presets: ['es2015']
-             }
+                test: /\.html/,
+                loader: "html"
+            },
+            {
+                test: /\.js$/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015']
+                }
             }
         ]
     },
